@@ -24,3 +24,11 @@ Also modify the tomcat's server.xml to add address="127.0.0.1", localhost only.
      URIEncoding="UTF-8"
      redirectPort="443" />
 
+
+
+In the app in Settings, you can paste your self signed cert if you want to use one.
+The list of users on your userhash server to view and will also be the ones you share your location with.
+The key is your Mapquest open street map key, or you can create another web template and use another map view service.
+Right now if you change the update minutes, you have to restart your phone to take effect.
+
+
