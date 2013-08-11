@@ -1,0 +1,57 @@
+<html>
+<head>
+    <script src='http://open.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=${key}'></script>
+    <script type='text/javascript'>
+      MQA.EventUtil.observe(window, 'load', function() { 
+        var options={ 
+          elt:document.getElementById('map'),      
+          zoom:13,                                 
+          latLng:{lat:${network.latitude}, lng:${network.longitude}},
+          mtype:'osm',                              
+          bestFitMargin:0,                          
+          zoomOnDoubleClick:true                     
+        };
+        window.map = new MQA.TileMap(options); 
+      
+       var networkKmAccuracy = ${network.accuracy} / 1000;
+       var gpsKmAccuracy = ${gps.accuracy} / 1000;
+      
+       MQA.withModule('shapes', function() { 
+    	   
+		    var circle1 = new MQA.CircleOverlay();
+		    circle1.radiusUnit='KM';
+		    circle1.radius=networkKmAccuracy;
+		    circle1.shapePoints=[${network.latitude}, ${network.longitude}];
+		    circle1.color='#B00303';
+		    circle1.colorAlpha=.3;
+		    circle1.borderWidth=4;
+		    circle1.fillColor='#EFFF70';
+		    circle1.fillColorAlpha=.2;
+		    map.addShape(circle1);
+		    
+		    if (${gps.accuracy} > 0) {
+		      var circle2 = new MQA.CircleOverlay();
+		      circle2.radiusUnit='KM';
+		      circle2.radius=gpsKmAccuracy;
+		      circle2.shapePoints=[${gps.latitude}, ${gps.longitude}];
+		      circle2.color='#0000FF';
+		      circle2.colorAlpha=.5;
+		      circle2.borderWidth=4;
+		      circle2.fillColor='#0000FF';
+		      circle2.fillColorAlpha=.2;
+		      map.addShape(circle2);
+		    }
+		    
+		    map.bestFit({keepCenter:true,minZoomLevel:13,maxZoomLevel:13});
+		    
+		    });
+	  
+      });
+
+      
+</script>
+ </head>
+ <body bgcolor="#000000"> 
+   <div id='map' style='width:400px; height:300px;'></div>
+ </body>
+</html>

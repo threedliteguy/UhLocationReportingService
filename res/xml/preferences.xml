@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory 
+        android:title="Location Publishing"
+        android:key="pref_location_publishing">
+         
+        <CheckBoxPreference
+        android:key="pref_enabled"
+        android:title="Enable location reporting"
+        android:summary="Activate publishing from this device"
+        android:defaultValue="false" />
+         
+        <EditTextPreference
+        android:key="pref_minutes"
+        android:title="Reporting interval"
+        android:summary="Enter minutes between reports (active on next restart)"
+        android:defaultValue="5" />
+         
+</PreferenceCategory>
+<PreferenceCategory 
+        android:title="Location Viewing"
+        android:key="pref_location_viewing">
+        
+      <EditTextPreference
+        android:key="pref_usernames"
+        android:title="User list"
+        android:summary="Userhash usernames to view and share location with, separated by spaces"
+        android:defaultValue="" />
+        
+     <EditTextPreference
+        android:key="pref_map_key"
+        android:title="Map view key"
+        android:summary="Key for map data account"
+        android:defaultValue="" />
+        
+      <EditTextPreference
+        android:key="pref_map_template"
+        android:title="Map view template (optional)"
+        android:summary="Html template for viewing location"
+        android:defaultValue="" />
+ 
+ 
+        
+</PreferenceCategory>
+<PreferenceCategory 
+        android:title="Userhash Server Connect Info"
+        android:key="pref_server_settings">
+        
+         <EditTextPreference
+        android:key="pref_url"
+        android:title="Server URL"
+        android:summary="Enter userhash server URL"
+        android:defaultValue="https://192.241.0.0/userhash/userhash" />
+        
+        <EditTextPreference
+        android:key="pref_username"
+        android:title="User name"
+        android:summary="Enter your userhash server account user name"
+        android:defaultValue="" />
+        
+        <EditTextPreference
+        android:key="pref_pwd"
+        android:title="Password"
+        android:summary="Enter your userhash server account password"
+        android:defaultValue="" />
+        
+        <EditTextPreference
+        android:key="pref_cert"
+        android:title="Self-signed cert (optional)"
+        android:summary="If using a self-signed certificate, paste it here"
+        android:defaultValue="" />
+        
+</PreferenceCategory>
+
+</PreferenceScreen>

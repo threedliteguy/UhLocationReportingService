@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <WebView
+        android:id="@+id/web_engine"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:padding="0dp"
+        android:paddingTop="0dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1" >
+
+            <TextView
+                android:id="@+id/location_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:textColor="#e5e5e1"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/edit_text_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/send" />
+
+                <Button
+                    android:id="@+id/button_gps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/gps" />
+            </LinearLayout>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

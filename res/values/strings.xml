@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">UserHash Location Reporting Service</string>
+    <string name="menu_settings">Settings</string>
+    <string name="send">Set Status</string>
+    <string name="gps">Update GPS location</string>
+    
+    
+</resources>
