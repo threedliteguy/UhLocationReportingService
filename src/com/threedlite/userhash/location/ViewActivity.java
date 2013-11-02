@@ -46,7 +46,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
 public class ViewActivity extends BaseActivity {
 
@@ -138,6 +138,19 @@ public class ViewActivity extends BaseActivity {
 		super.onDestroy();
 	}
 
+	@Override
+	public void onPause() {
+		mRefresh = false;
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		mRefresh = true;
+		super.onResume();
+	}
+
+
 	private void getUpdates() {
 
 		try {
@@ -203,35 +216,41 @@ public class ViewActivity extends BaseActivity {
 	@SuppressLint("SetJavaScriptEnabled")
 	private void handleResult(String name, String msg) {
 
-		Map<String, String> props = getProps(msg);
+		try {
 
-		String time = props.get("network.time");
-		if (time == null) {
-			// server may be down
-			return;
+			Map<String, String> props = getProps(msg);
+
+			String time = props.get("network.time");
+			if (time == null) {
+				// server may be down
+				return;
+			}
+
+			String key = mPrefs.getString(Constants.PREF_MAP_KEY, "");
+			props.put("key", key);
+
+
+			String browserTemplate = getTemplate();
+			validateProps(props);
+			String browserHtml = replace(browserTemplate, props);
+
+			WebView engine = (WebView) findViewById(R.id.web_engine);
+			WebSettings webSettings = engine.getSettings();
+			webSettings.setJavaScriptEnabled(true);   
+			engine.loadData(browserHtml,"text/html","UTF-8");  
+
+			String status = props.get("status");
+			if (status == null) status = "";
+			if (status.length() > MAX_STATUS_LEN) status = status.substring(0,MAX_STATUS_LEN);
+			String statusTime = props.get("status.time");
+			if (statusTime == null) statusTime = "";
+
+			TextView tv = (TextView) findViewById(R.id.location_info);
+			tv.setText(name+"\n"+status+"\nLocation "+time+"\nStatus "+statusTime);
+
+		} catch (Exception e) {
+			Log.e(TAG, "handleResult:", e);
 		}
-
-		String key = mPrefs.getString(Constants.PREF_MAP_KEY, "");
-		props.put("key", key);
-
-
-		String browserTemplate = getTemplate();
-		validateProps(props);
-		String browserHtml = replace(browserTemplate, props);
-
-		WebView engine = (WebView) findViewById(R.id.web_engine);
-		WebSettings webSettings = engine.getSettings();
-		webSettings.setJavaScriptEnabled(true);   
-		engine.loadData(browserHtml,"text/html","UTF-8");  
-
-		String status = props.get("status");
-		if (status == null) status = "";
-		if (status.length() > MAX_STATUS_LEN) status = status.substring(0,MAX_STATUS_LEN);
-		String statusTime = props.get("status.time");
-		if (statusTime == null) statusTime = "";
-
-		TextView tv = (TextView) findViewById(R.id.location_info);
-		tv.setText(name+"\n"+status+"\nLocation "+time+"\nStatus "+statusTime);
 
 	}
 
